@@ -1,0 +1,50 @@
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample data of 10 students
+hours = [2, 3, 3, 4, 4, 4, 5, 5, 6, 4]
+
+purpose = [
+    "Study", "Social Media", "Study", "Entertainment",
+    "Social Media", "Study", "Communication",
+    "Entertainment", "Study", "Social Media"
+]
+
+# Statistical calculations
+h = pd.Series(hours)
+
+mean = h.mean()
+median = h.median()
+mode = h.mode()[0]
+data_range = h.max() - h.min()
+std = h.std()
+cv = (std / mean) * 100
+skewness = h.skew()
+
+print("Mean:", mean)
+print("Median:", median)
+print("Mode:", mode)
+print("Range:", data_range)
+print("Standard Deviation:", std)
+print("Coefficient of Variation:", cv, "%")
+print("Skewness:", skewness)
+
+# Compare average usage by purpose
+data = pd.DataFrame({
+    "Purpose": purpose,
+    "Hours": hours
+})
+
+average = data.groupby("Purpose")["Hours"].mean()
+
+print("\nAverage Internet Usage by Purpose:")
+print(average)
+
+# Bar chart
+average.plot(kind="bar")
+plt.title("Average Internet Usage by Purpose")
+plt.xlabel("Purpose")
+plt.ylabel("Average Hours")
+plt.tight_layout()
+plt.show()
